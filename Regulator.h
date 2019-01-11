@@ -8,9 +8,11 @@ public:
   Regulator() = default;
   ~Regulator() final override = default;
 
-  void Receive(uint16_t& data) final override
+  void Receive(uint16_t& temp) final override
   {
-    auto percentage = GetPercentage(data);
+    Serial.print("Temperature: ");
+    Serial.println(temp);
+    auto percentage = GetPercentage(temp);
     Transmit(percentage);
   }
 

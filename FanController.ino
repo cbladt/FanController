@@ -15,6 +15,7 @@ Fan fan1(FAN1_POWERPIN, FAN1_PWMPIN);
 
 void setup() 
 {  
+  Serial.begin(9600);
   adc.Connect(temperature);
   temperature.Connect(regulator);
   regulator.Connect(fan1);

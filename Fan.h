@@ -18,6 +18,8 @@ public:
 
   void Receive(uint8_t& fanSpeed) final override
   {
+    Serial.print("Speed: ");
+    Serial.println(fanSpeed);
     if (fanSpeed > 0)
     {
       _pwm.SetDutyCyclePercentage(fanSpeed);

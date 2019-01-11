@@ -9,14 +9,14 @@ public:
     _pin(pin)
   {
     pinMode(_pin, OUTPUT);
-    Set(LOW);
+    TurnOff();
   }
 
   void EnsureOn()
   {
     if (!_state)
     {
-      Set(HIGH);
+      TurnOn();
     }
   }
 
@@ -24,7 +24,7 @@ public:
   {
     if (_state)
     {
-      Set(LOW);
+      TurnOff();
     }
   }
   
@@ -32,9 +32,15 @@ private:
   bool _state;
   uint8_t _pin;
 
-  void Set(bool state)
+  void TurnOn()
   {
-    _state = state;
-    digitalWrite(_pin, state);
+    _state = true;
+    digitalWrite(_pin, LOW);
   }
+
+  void TurnOff()
+  {
+    _state = false;
+    digitalWrite(_pin, HIGH);
+  }  
 };
