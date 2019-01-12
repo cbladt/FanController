@@ -1,22 +1,21 @@
 #include "TransmitReceive.h"
 
+template <typename Temperature_t, typename Percentage_t>
 class Regulator :
-  public IReceive<uint16_t>,
-  public TransmitBase<uint8_t>
+  public IReceive<Temperature_t>,
+  public TransmitBase<Percentage_t>
 {
 public:
   Regulator() = default;
   ~Regulator() final override = default;
 
-  void Receive(uint16_t& temp) final override
-  {
-    Serial.print("Temperature: ");
-    Serial.println(temp);
+  void Receive(Temperature_t& temp) final override
+  {    
     auto percentage = GetPercentage(temp);
     Transmit(percentage);
   }
 
-  uint8_t GetPercentage(uint16_t input)
+  Percentage_t GetPercentage(Temperature_t& input)
   {
     if (input > 100)
     {

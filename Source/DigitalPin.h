@@ -1,16 +1,16 @@
 #include <Arduino.h>
-#include <stdint.h>
 
-class Relay
+template <typename Pin_t>
+class DigitalPin
 {
 public:
-  Relay(uint8_t pin) :
-    _state(LOW),
+  DigitalPin(Pin_t pin) :
+    _state(false),
     _pin(pin)
-  {
+  {    
     pinMode(_pin, OUTPUT);
     TurnOff();
-  }
+  }    
 
   void EnsureOn()
   {
@@ -30,17 +30,17 @@ public:
   
 private:
   bool _state;
-  uint8_t _pin;
+  Pin_t _pin;
 
   void TurnOn()
   {
     _state = true;
-    digitalWrite(_pin, LOW);
+    digitalWrite(_pin, true);
   }
 
   void TurnOff()
-  {
+  {    
     _state = false;
-    digitalWrite(_pin, HIGH);
+    digitalWrite(_pin, false);
   }  
 };

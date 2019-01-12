@@ -1,0 +1,3 @@
+[submodule "ArduinoStuff/hardware/arduino"]
+	path = ArduinoStuff/hardware/arduino
+	url = https://github.com/arduino/ArduinoCore-avr.git

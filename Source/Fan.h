@@ -1,25 +1,22 @@
-#include "SoftwarePwm.h"
-#include "Relay.h"
 #include "TransmitReceive.h"
 
+template <typename Percentage_t, typename Relay_t, typename Tick_t, typename Pwm_t>
 class Fan :
-  public IReceive<uint8_t>
+  public IReceive<Percentage_t>
 {
-public:
-  Fan(uint8_t relayPin, uint8_t pwmPin) :
-    _pwm(pwmPin, 25000),
-    _relay(relayPin)
+public:  
+  Fan(Relay_t& relay, Pwm_t& pwm) :
+    _pwm(pwm),
+    _relay(relay)
   {}
 
-  void Service(uint32_t tickUs)
+  void Service(Tick_t tickUs)
   {
     _pwm.Service(tickUs);
   }
 
-  void Receive(uint8_t& fanSpeed) final override
-  {
-    Serial.print("Speed: ");
-    Serial.println(fanSpeed);
+  void Receive(Percentage_t& fanSpeed) final override
+  {    
     if (fanSpeed > 0)
     {
       _pwm.SetDutyCyclePercentage(fanSpeed);
@@ -32,6 +29,6 @@ public:
   }
 
 private:
-  SoftwarePwm _pwm;
-  Relay _relay;
+  Pwm_t& _pwm;
+  Relay_t& _relay;
 };

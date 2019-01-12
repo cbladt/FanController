@@ -1669,8 +1669,7 @@ else
 endif
 
 do_upload:
-		$(AVRDUDE) $(AVRDUDE_COM_OPTS) $(AVRDUDE_ARD_OPTS) \
-			$(AVRDUDE_UPLOAD_HEX)
+		$(AVRDUDE) -q -v -patmega328p -carduino -P/dev/ttyUSB1 -b57600 -D $(AVRDUDE_UPLOAD_HEX)
 
 do_sam_upload:  $(TARGET_BIN) verify_size
 ifeq ($(findstring openocd, $(strip $(UPLOAD_TOOL))), openocd)

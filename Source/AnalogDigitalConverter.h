@@ -1,11 +1,12 @@
 #include "TransmitReceive.h"
+#include <Arduino.h>
 
-template <typename T>
+template <typename Pin_t, typename Reading_t>
 class AnalogDigitalConverter :
-  public TransmitBase<uint16_t>
+  public TransmitBase<Reading_t>
 {
 public:
-  AnalogDigitalConverter(T pin) :
+  AnalogDigitalConverter(Pin_t pin) :
     _pin(pin)
   {}
 
@@ -13,11 +14,11 @@ public:
 
   void Service()
   {
-    auto reading = static_cast<uint16_t>(analogRead(_pin));
+    auto reading = static_cast<Reading_t>(analogRead(_pin));
     Transmit(reading);
   }
 
 private:
-  T _pin;
+  Pin_t _pin;
 };
 
